@@ -8,7 +8,8 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:8081",
-    "http://localhost:8080"
+    "http://localhost:8080",
+    "http://contador-ala-mano.herokuapp.com"
 ]
 
 
@@ -28,8 +29,7 @@ async def obtener_balance(id_usuario : int):
     egresos = []
     for i in range(len(registros)):
         if registros[i].id_usuario == id_usuario:
-           lista_final.append(registros[i])
-    
+           lista_final.append(registros[i])       
     for i in range(len(lista_final)):
         if lista_final[i].tipo == "ingreso":
             ingresos.append(lista_final[i].valor)
@@ -43,7 +43,7 @@ async def obtener_balance(id_usuario : int):
 async def crear_registro(registro: db.Registro):
     creado_exitosamente = db.crear_registro(registro)
     if creado_exitosamente:
-        return {"mensaje: Registro creado exitosamente"}
+        return {"mensaje": "Registro creado exitosamente"}
     else:
         raise HTTPException(status_code=400, detail="Error, la ID ya se encuentra registrada")
 
