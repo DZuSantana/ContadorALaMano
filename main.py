@@ -40,6 +40,25 @@ async def obtener_balance(id_usuario : int):
 
     return {"data":lista_final, "balance":sum(ingresos)-sum(egresos)}
 
+@app.get("/presupuesto/balance/{id_usuario}")
+async def obtener_presupuesto(id_usuario : int, etiqueta : str, mes : int):
+    registros = db.obtener_registros()
+    presupuesto = db.obtener_presupuesto()
+    lista_registros = []
+    lista_presupuesto = []
+    estado = 0
+    for i in range(len(registros)):
+        if registros[i].id_usuario == id_usuario and registros[i].etiqueta == etiqueta:
+           lista_registros.append(registros[i])
+    for i in range(len(presupuesto)):
+        if presupuesto[i].etiqueta == etiqueta and presupuesto[i].mes == mes:
+            lista_presupuesto.append(presupuesto[i])
+    estado = lista_presupuesto[0].valor
+    for i in range(len(lista_registros)):
+        if lista_registros[i].tipo == "egreso" and lista_registros[i].etiqueta == etiqueta:
+            estado-= lista_registros[i].valor 
+    return {"registros":lista_registros, "presupuesto": lista_presupuesto ,"estado": estado }
+
 
 @app.post("/registro/")
 async def crear_registro(registro: db.Registro):
