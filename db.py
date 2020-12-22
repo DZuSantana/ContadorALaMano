@@ -29,8 +29,9 @@ registros = {
 
 presupuesto = {
   1: Presupuesto(id=1, id_usuario=1, etiqueta="casa", valor= 500000, mes= 12),
-  2: Presupuesto(id=2, id_usuario=1, etiqueta="transpote", valor= 200000, mes= 12),
-  3: Presupuesto(id=3, id_usuario=1, etiqueta="comida", valor= 300000, mes= 12)
+  2: Presupuesto(id=2, id_usuario=1, etiqueta="transporte", valor= 200000, mes= 12),
+  3: Presupuesto(id=3, id_usuario=1, etiqueta="comida", valor= 300000, mes= 12),
+  4: Presupuesto(id=4, id_usuario=1, etiqueta="entretenimiento", valor= 100000, mes= 12)
 }
 
 

@@ -46,7 +46,7 @@ async def obtener_presupuesto(id_usuario : int, etiqueta : str, mes : int):
     presupuesto = db.obtener_presupuesto()
     lista_registros = []
     lista_presupuesto = []
-    estado = 0
+    gasto_total = 0
     for i in range(len(registros)):
         if registros[i].id_usuario == id_usuario and registros[i].etiqueta == etiqueta:
            lista_registros.append(registros[i])
@@ -56,8 +56,10 @@ async def obtener_presupuesto(id_usuario : int, etiqueta : str, mes : int):
     estado = lista_presupuesto[0].valor
     for i in range(len(lista_registros)):
         if lista_registros[i].tipo == "egreso" and lista_registros[i].etiqueta == etiqueta:
-            estado-= lista_registros[i].valor 
-    return {"registros":lista_registros, "presupuesto": lista_presupuesto ,"estado": estado }
+            gasto_total += lista_registros[i].valor
+            estado-= lista_registros[i].valor
+     
+    return {"registros":lista_registros, "presupuesto": lista_presupuesto ,"estado": estado, "gastos_totales": gasto_total}
 
 
 @app.post("/registro/")
